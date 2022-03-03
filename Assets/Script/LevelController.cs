@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Function - Changing scene after level complete.
+/// Attached on - Levelcompletion
+/// </summary>
 public class LevelController : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)

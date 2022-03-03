@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
+/// <summary>
+/// Function - Reload scene after Death.
+/// Attached on - Death object
+/// </summary>
 public class DeathController : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)

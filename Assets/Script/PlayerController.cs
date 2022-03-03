@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Control Player Movement, Animation and Key collection.
+/// </summary>
 public class PlayerController : MonoBehaviour
 {
+    public ScoreController scoreController;
     Animator animator;
     Rigidbody2D rb;
     [SerializeField] private float speed;
@@ -23,14 +27,15 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float horrizontalInput = Input.GetAxisRaw("Horizontal");
-        float VerticalInput = Input.GetAxis("Vertical");
+        float VerticalInput = Input.GetAxisRaw("Vertical");
 
-        if( Mathf.Abs(horrizontalInput) > 0)
+        if( Mathf.Abs(horrizontalInput) > 0 )
         {
-            Run(horrizontalInput);
+           Run(horrizontalInput);
         }
+        
 
-        if( VerticalInput > 0 && OnGround)
+        if ( VerticalInput > 0 && OnGround)
         {
             isJumping = true;
         }
@@ -46,6 +51,8 @@ public class PlayerController : MonoBehaviour
 
         PlayAnimation(horrizontalInput, VerticalInput, crouchEnable);
 
+        
+
     }
 
     private void FixedUpdate()
@@ -54,7 +61,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
             isJumping = false;
-            OnGround = false;
+            //OnGround = false;
         }
     }
 
@@ -65,17 +72,29 @@ public class PlayerController : MonoBehaviour
             OnGround = true;
         }
     }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            OnGround = false;
+        }
+    }
 
-    void Run(float horrizontalInput)
+    void Run(float horrizontalInput)  
     {
         Vector2 position = gameObject.transform.position;
         position.x += speed * horrizontalInput * Time.deltaTime;
         gameObject.transform.position = position;
     }
 
-   
-    void PlayAnimation(float horrizontalInput,float VerticalInput, bool crouchEnable)
+    public void KeyPickUp()  // Key collector
     {
+        scoreController.ScoreIncrementer(10);
+    }
+   
+    void PlayAnimation(float horrizontalInput,float VerticalInput, bool crouchEnable) // Contorl Player animation
+    {
+        // Player Flip
         Vector2 scale = gameObject.transform.localScale;
         if (horrizontalInput > 0)
         {
@@ -87,9 +106,14 @@ public class PlayerController : MonoBehaviour
         }
         gameObject.transform.localScale = scale;
 
-        animator.SetFloat("Speed", Mathf.Abs(horrizontalInput));
+        // Playing Run Animation
+        if (OnGround)
+        {
+            animator.SetFloat("Speed", Mathf.Abs(horrizontalInput));
+        }
+        
        
-
+        // Playing Crouch Animation
         if (crouchEnable)
         {
             animator.SetBool("Crouch", true);
@@ -99,6 +123,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Crouch", false);
         }
 
+        // Playing Jump Animation
         if (OnGround && isJumping)
         {
             animator.SetBool("Jump", true);
