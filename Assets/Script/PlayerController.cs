@@ -25,17 +25,17 @@ public class PlayerController : MonoBehaviour
         float horrizontalInput = Input.GetAxisRaw("Horizontal");
         float VerticalInput = Input.GetAxis("Vertical");
 
-        if(Mathf.Abs(horrizontalInput) > 0)
+        if( Mathf.Abs(horrizontalInput) > 0)
         {
             Run(horrizontalInput);
         }
 
-        if(VerticalInput > 0 && OnGround)
+        if( VerticalInput > 0 && OnGround)
         {
             isJumping = true;
         }
  
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if ( Input.GetKeyDown(KeyCode.LeftControl))
         {
             crouchEnable = true;
         }
