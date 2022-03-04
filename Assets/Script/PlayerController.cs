@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Control Player Movement, Animation and Key collection.
@@ -16,12 +17,18 @@ public class PlayerController : MonoBehaviour
     bool OnGround;
     bool isJumping;
     public bool IsDead = false;
+    public GameObject[] Health;
+    int HealthCount;
+    Vector2 InitialPosition;
 
 
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
         rb = gameObject.GetComponent<Rigidbody2D>();
+        InitialPosition = gameObject.transform.position;
+        HealthCount = Health.Length;
+
     }
 
     // Update is called once per frame
@@ -138,5 +145,21 @@ public class PlayerController : MonoBehaviour
 
         //Playing Dead animation
         animator.SetBool("isDead", IsDead);
+    }
+
+    public void HealthDecrement()  
+    {
+        
+        if(HealthCount > 1)
+        {
+            Destroy(Health[HealthCount - 1]);
+            HealthCount -= 1;
+            gameObject.transform.position = InitialPosition;
+        }
+        else
+        {
+            IsDead = true;
+            SceneManager.LoadScene("Level-1");
+        }
     }
 }

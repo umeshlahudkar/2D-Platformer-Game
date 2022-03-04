@@ -164,3 +164,8 @@ MonoBehaviour:
   scoreController: {fileID: 0}
   speed: 7
   jump: 8
+  IsDead: 0
+  Health:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
