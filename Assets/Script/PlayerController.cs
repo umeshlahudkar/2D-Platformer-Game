@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     bool crouchEnable;
     bool OnGround;
     bool isJumping;
+    public bool IsDead = false;
 
 
     void Start()
@@ -134,5 +135,8 @@ public class PlayerController : MonoBehaviour
         }
 
         animator.SetBool("OnGround", OnGround);
+
+        //Playing Dead animation
+        animator.SetBool("isDead", IsDead);
     }
 }
