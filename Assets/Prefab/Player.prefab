@@ -162,6 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreController: {fileID: 0}
+  gameOverController: {fileID: 0}
   speed: 7
   jump: 8
   IsDead: 0

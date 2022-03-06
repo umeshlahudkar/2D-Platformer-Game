@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public ScoreController scoreController;
+    public GameOverController gameOverController;
     Animator animator;
     Rigidbody2D rb;
     [SerializeField] private float speed;
@@ -152,14 +153,17 @@ public class PlayerController : MonoBehaviour
         
         if(HealthCount > 1)
         {
-            Destroy(Health[HealthCount - 1]);
+            //Destroy(Health[HealthCount - 1]);
+            Health[HealthCount - 1].SetActive(false);
             HealthCount -= 1;
             gameObject.transform.position = InitialPosition;
         }
         else
         {
             IsDead = true;
-            SceneManager.LoadScene("Level-1");
+            //SceneManager.LoadScene("Level-1");
+            gameOverController.PlayerDied();
+
         }
     }
 }
