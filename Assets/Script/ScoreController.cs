@@ -4,8 +4,7 @@ using UnityEngine;
 using TMPro;
 
 /// <summary>
-/// Increment score and Display in Game scene.
-/// Attached on - text UI
+/// Increment score and Display Score in Game scene.
 /// </summary>
 public class ScoreController : MonoBehaviour
 {
@@ -19,15 +18,17 @@ public class ScoreController : MonoBehaviour
     }
     
    
-    public void ScoreIncrementer(int increment)  // Increment score
+    public void ScoreIncrementer(int increment)  
     {
+        // Score increment
         score += increment;
         ScoreDisplay();
     }
 
 
-    public void ScoreDisplay()  // Display Score
+    public void ScoreDisplay()  
     {
+        // Display score.
         scoreText.text = " Score : " + score;
     }
 }

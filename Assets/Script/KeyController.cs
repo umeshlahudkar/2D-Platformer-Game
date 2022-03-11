@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Function - Collect Keys
-/// Attached on - Key Object
+///   After colliding with Player, Key destroied and call the function KeyPickUp() feom the PlayerController Script.
+///   Attached - Key
 /// </summary>
 public class KeyController : MonoBehaviour
 {

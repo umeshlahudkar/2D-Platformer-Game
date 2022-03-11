@@ -4,166 +4,157 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Control Player Movement, Animation and Key collection.
+/// Control Player Movement and animation.
 /// </summary>
-public class PlayerController : MonoBehaviour
-{
-    public ScoreController scoreController;
-    public GameOverController gameOverController;
-    Animator animator;
-    Rigidbody2D rb;
-    [SerializeField] private float speed;
-    [SerializeField] private float jump;
-    bool crouchEnable;
-    bool OnGround;
-    bool isJumping;
-    public bool IsDead = false;
-    public GameObject[] Health;
-    int HealthCount;
-    Vector2 InitialPosition;
 
 
-    void Start()
+ public class PlayerController : MonoBehaviour
     {
-        animator = gameObject.GetComponent<Animator>();
-        rb = gameObject.GetComponent<Rigidbody2D>();
-        InitialPosition = gameObject.transform.position;
-        HealthCount = Health.Length;
+        public ScoreController scoreController;
+        public GameOverController gameOverController;
+        Animator animator;
+        Rigidbody2D rb;
+        [SerializeField] private float speed;
+        [SerializeField] private float jump;
+        bool crouchEnable;
+        bool OnGround;
+        bool isJumping;
+        public bool IsDead = false;
+        public GameObject[] Health;
+        int HealthCount;
+        Vector2 InitialPosition;
 
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        float horrizontalInput = Input.GetAxisRaw("Horizontal");
-        float VerticalInput = Input.GetAxisRaw("Vertical");
+        void Start()
+        {
+            animator = gameObject.GetComponent<Animator>();
+            rb = gameObject.GetComponent<Rigidbody2D>();
+            InitialPosition = gameObject.transform.position;
+            HealthCount = Health.Length;
 
-        if( Mathf.Abs(horrizontalInput) > 0 )
-        {
-           Run(horrizontalInput);
-        }
-        
-
-        if ( VerticalInput > 0 && OnGround)
-        {
-            isJumping = true;
-        }
- 
-        if ( Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            crouchEnable = true;
-        }
-        if (Input.GetKeyUp(KeyCode.LeftControl))
-        {
-            crouchEnable = false;
         }
 
-        PlayAnimation(horrizontalInput, VerticalInput, crouchEnable);
+        void Update()
+        {
+            float horrizontalInput = Input.GetAxisRaw("Horizontal");
+            float VerticalInput = Input.GetAxisRaw("Vertical");
 
-        
+            if (Mathf.Abs(horrizontalInput) > 0)
+            {
+                Run(horrizontalInput);
+            }
 
-    }
 
-    private void FixedUpdate()
-    {
-        if (isJumping)
-        {
-            rb.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
-            isJumping = false;
-            //OnGround = false;
-        }
-    }
+            if (VerticalInput > 0 && OnGround)
+            {
+                isJumping = true;
+            }
 
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if(collision.gameObject.tag == "Ground")
-        {
-            OnGround = true;
-        }
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Ground")
-        {
-            OnGround = false;
-        }
-    }
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                // Playing Crouch animation.
+                animator.SetBool("Crouch", true);
+            }
+            if (Input.GetKeyUp(KeyCode.LeftControl))
+            {
+                // Playing Crouch animation.
+                animator.SetBool("Crouch", false);
+            }
 
-    void Run(float horrizontalInput)  
-    {
-        Vector2 position = gameObject.transform.position;
-        position.x += speed * horrizontalInput * Time.deltaTime;
-        gameObject.transform.position = position;
-    }
+            PlayAnimation(horrizontalInput, VerticalInput, crouchEnable);
 
-    public void KeyPickUp()  // Key collector
-    {
-        scoreController.ScoreIncrementer(10);
-    }
-   
-    void PlayAnimation(float horrizontalInput,float VerticalInput, bool crouchEnable) // Contorl Player animation
-    {
-        // Player Flip
-        Vector2 scale = gameObject.transform.localScale;
-        if (horrizontalInput > 0)
-        {
-            scale.x = 1f * Mathf.Abs(scale.x);
-        }
-        if (horrizontalInput < 0)
-        {
-            scale.x = -1f * Mathf.Abs(scale.x);
-        }
-        gameObject.transform.localScale = scale;
 
-        // Playing Run Animation
-        if (OnGround)
-        {
-            animator.SetFloat("Speed", Mathf.Abs(horrizontalInput));
-        }
-        
-       
-        // Playing Crouch Animation
-        if (crouchEnable)
-        {
-            animator.SetBool("Crouch", true);
-        }
-        else
-        {
-            animator.SetBool("Crouch", false);
-        }
-
-        // Playing Jump Animation
-        if (OnGround && isJumping)
-        {
-            animator.SetBool("Jump", true);
-        }
-        else
-        {
-            animator.SetBool("Jump", false);
-        }
-
-        animator.SetBool("OnGround", OnGround);
-
-        //Playing Dead animation
-        animator.SetBool("isDead", IsDead);
-    }
-
-    public void HealthDecrement()  
-    {
-        
-        if(HealthCount > 1)
-        {
-            //Destroy(Health[HealthCount - 1]);
-            Health[HealthCount - 1].SetActive(false);
-            HealthCount -= 1;
-            gameObject.transform.position = InitialPosition;
-        }
-        else
-        {
-            IsDead = true;
-            //SceneManager.LoadScene("Level-1");
-            gameOverController.PlayerDied();
 
         }
-    }
+
+        private void FixedUpdate()
+        {
+            if (isJumping)
+            {
+                rb.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
+                isJumping = false;
+            }
+        }
+
+
+        private void OnCollisionEnter2D(Collision2D collision) // Checking Status of Player is OnGround or not.
+        {
+            if (collision.gameObject.tag == "Ground")
+            {
+                OnGround = true;
+            }
+        }
+        private void OnCollisionExit2D(Collision2D collision)  // Checking Status of Player is OnGround or not.
+        {
+            if (collision.gameObject.tag == "Ground")
+            {
+                OnGround = false;
+            }
+        }
+
+        void Run(float horrizontalInput)
+        {
+            Vector2 position = gameObject.transform.position;
+            position.x += speed * horrizontalInput * Time.deltaTime;
+            gameObject.transform.position = position;
+        }
+
+        public void KeyPickUp()  // Key collector
+        {
+            scoreController.ScoreIncrementer(10);
+        }
+
+        void PlayAnimation(float horrizontalInput, float VerticalInput, bool crouchEnable) // Contorl Player animation
+        {
+            // Playing Player Flip animation
+            Vector2 scale = gameObject.transform.localScale;
+            if (horrizontalInput > 0)
+            {
+                scale.x = 1f * Mathf.Abs(scale.x);
+            }
+            if (horrizontalInput < 0)
+            {
+                scale.x = -1f * Mathf.Abs(scale.x);
+            }
+            gameObject.transform.localScale = scale;
+
+            // Playing Run Animation
+            if (OnGround)
+            {
+                animator.SetFloat("Speed", Mathf.Abs(horrizontalInput));
+            }
+
+            // Playing Jump Animation
+            if (OnGround && isJumping)
+            {
+                animator.SetBool("Jump", true);
+            }
+            else
+            {
+                animator.SetBool("Jump", false);
+            }
+
+            animator.SetBool("OnGround", OnGround);
+        }
+
+        public void HealthDecrement() // Decrementing Player Health.
+        {
+
+            if (HealthCount > 1)
+            {
+                // Disable/Decrement Heart when player collides with enemy or fall from Platform.
+                Health[HealthCount - 1].SetActive(false);
+                // HealthCount = No. of Hearts(Object)
+                HealthCount -= 1;
+                // When player collides with Enemy or fall from Platform, set player position to its initial position when game start.
+                gameObject.transform.position = InitialPosition;
+            }
+            else
+            {
+                gameOverController.PlayerDied();
+
+            }
+        }
+    
 }
+

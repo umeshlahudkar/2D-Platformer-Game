@@ -5,6 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
 
+/// <summary>
+/// Control the UI in the GameOver screen.
+/// </summary>
 public class GameOverController : MonoBehaviour
 {
     public Button restartButton;
@@ -20,21 +23,26 @@ public class GameOverController : MonoBehaviour
 
     private void MainMenuButtonClick()
     {
+        // Load Main menu scene (Lobby scene).
         SceneManager.LoadScene("LobbyScene");
     }
 
     public void PlayerDied()
     {
+        // Enable GameOver screen
         gameObject.SetActive(true);
     }
 
     public void RestartButtonClick()
     {
-        SceneManager.LoadScene("Level-1");
+        // Reload current scene
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.buildIndex);
     }
 
     public void QuitButtonClick()
     {
+        // Closes application.
         Application.Quit();
     }
 }

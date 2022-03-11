@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Function - Control Enemy Movement and Fliping
+/// Control Enemy Movement and Fliping
 /// Attached on- Enemy
 /// </summary>
 public class EnemyController : MonoBehaviour
@@ -19,12 +19,10 @@ public class EnemyController : MonoBehaviour
     private void Update()
     {
         FlipEnemy();
-        Movement();
-
-
+        HorrizontalMovement();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision) // Checking fliping status
     {
         if (collision.gameObject.CompareTag("Flip"))
         {
@@ -32,20 +30,20 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)  // Checking fliping status
     {
         if (collision.gameObject.CompareTag("Flip"))
         {
             flipEnemy = false;
         }
     }
-    void FlipEnemy()
+    void FlipEnemy() // Flip Enemy 
     {
         Vector2 scale = gameObject.transform.localScale;
         if (flipEnemy)
         {
             scale.x = -1f * scale.x;
-            speed = -1f * speed;
+            speed = -1f * speed; // when Enemy flip, makes Speed '-' so that Enemy move in opposite direction.
         }
         else
         {
@@ -54,14 +52,10 @@ public class EnemyController : MonoBehaviour
         gameObject.transform.localScale = scale;
     }
 
-    void Movement()
+    void HorrizontalMovement() // Enemy horrizontal movement
     {
         Vector2 enemyPos = rb.velocity;
         enemyPos.x = speed * Time.deltaTime;
         rb.velocity = enemyPos;
-
-        //Vector2 pos = gameObject.transform.position;
-        //pos.x = speed * Time.deltaTime;
-        //gameObject.transform.position = pos;
     }
 }

@@ -4,16 +4,18 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Function - Changing scene after level complete.
-/// Attached on - Levelcompletion
+/// If Player collides with Enemy or falls from the Platform, calls the HealthDecrement() function from the playerController class.
+/// Attached - Enemy 
 /// </summary>
 public class LevelController : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.GetComponent<PlayerController>() != null)
+        if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            SceneManager.LoadScene("Level-2");
+            PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
+            // calling function HealthDecrement() if Player collide with Enem or fallen from Platform.
+            playerController.HealthDecrement();
         }
     }
 }
