@@ -4,18 +4,28 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// If Player collides with Enemy or falls from the Platform, calls the HealthDecrement() function from the playerController class.
-/// Attached - Enemy 
+/// Detects the collision and triggers in the Level.
 /// </summary>
 public class LevelController : MonoBehaviour
 {
+    public LevelOverController levelOverController;
+
+    // Detecting triggers of Player and Enemy
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-            // calling function HealthDecrement() if Player collide with Enem or fallen from Platform.
             playerController.HealthDecrement();
+        }
+    }
+
+    // Detecting collision of Player and LevelComplete object.
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<PlayerController>() != null)
+        {
+            levelOverController.LevelComplete();
         }
     }
 }

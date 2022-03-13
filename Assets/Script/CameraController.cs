@@ -10,13 +10,14 @@ public class CameraController : MonoBehaviour
 {
 
     public GameObject Player;
-    void Update()
+  
+
+    private void LateUpdate()
     {
         Vector3 cameraPosition = gameObject.transform.position;
         cameraPosition.x = Player.transform.position.x;
         cameraPosition.y = Player.transform.position.y;
 
-        gameObject.transform.position = cameraPosition; 
-
+        gameObject.transform.position = cameraPosition;
     }
 }

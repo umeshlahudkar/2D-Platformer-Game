@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Load the Level when related button pressed.
+/// Load the Level when Levels button pressed.
 /// 
 /// </summary>
 
@@ -21,8 +21,27 @@ public class LevelLoader : MonoBehaviour
         button.onClick.AddListener(LevelLoad);
     }
 
+    // Getting the status of Level and loading Levels.
     void LevelLoad()
     {
-        SceneManager.LoadScene(LevelName);
+        LevelStatus levelStatus = LevelManager.Instance.GetLevelStastus(LevelName);
+
+        switch (levelStatus)
+        {
+            case LevelStatus.complete:
+                 SceneManager.LoadScene(LevelName);
+                break;
+
+            case LevelStatus.locked:
+                Debug.Log("Level Locked");
+                break;
+
+            case LevelStatus.unlocked:
+                SceneManager.LoadScene(LevelName);
+                break;
+        }
+
+
+
     }
 }
