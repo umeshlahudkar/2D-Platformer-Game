@@ -17,6 +17,8 @@ public class LevelController : MonoBehaviour
         {
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
             playerController.HealthDecrement();
+
+            SoundManager.Instance.PlaySFx("collision");
         }
     }
 

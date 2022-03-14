@@ -25,12 +25,19 @@ public class GameOverController : MonoBehaviour
     {
         // Load Main menu scene (Lobby scene).
         SceneManager.LoadScene("LobbyScene");
+        // Playing button click sound
+        SoundManager.Instance.PlaySFx("ButtonClick");
+        // disable mute to play backGround music
+        SoundManager.Instance.SoundBgMusic.mute = false;
     }
 
     public void PlayerDied()
     {
         // Enable GameOver screen
         gameObject.SetActive(true);
+        // Muting Background music to play another music for GameOver sreen from Inspector 
+        SoundManager.Instance.SoundBgMusic.mute = true;
+        
     }
 
     public void RestartButtonClick()
@@ -38,11 +45,19 @@ public class GameOverController : MonoBehaviour
         // Reload current scene
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.buildIndex);
+        // Playing button click sound
+        SoundManager.Instance.PlaySFx("ButtonClick");
+        // disable mute to play backGround music
+        SoundManager.Instance.SoundBgMusic.mute = false;
     }
 
     public void QuitButtonClick()
     {
         // Closes application.
         Application.Quit();
+        // Playing button click sound
+        SoundManager.Instance.PlaySFx("ButtonClick");
+        // disable mute to play backGround music
+        SoundManager.Instance.SoundBgMusic.mute = false;
     }
 }

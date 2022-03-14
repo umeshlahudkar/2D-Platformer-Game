@@ -71,6 +71,7 @@ using UnityEngine.SceneManagement;
         {
             if (isJumping)
             {
+                SoundManager.Instance.PlaySFx("Jump");
                 rb.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
                 isJumping = false;
             }
@@ -97,6 +98,8 @@ using UnityEngine.SceneManagement;
             Vector2 position = gameObject.transform.position;
             position.x += speed * horrizontalInput * Time.deltaTime;
             gameObject.transform.position = position;
+
+            SoundManager.Instance.PlaySFx("Run");
         }
 
         public void KeyPickUp()  // Key collector
@@ -152,7 +155,7 @@ using UnityEngine.SceneManagement;
             else
             {
                 gameOverController.PlayerDied();
-
+                this.enabled = false;
             }
         }
     

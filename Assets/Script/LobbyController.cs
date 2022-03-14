@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Controls the Lobby scene UI
+/// Controls the Lobby scene UI and NuttonClick sound
 /// </summary>
 public class LobbyController : MonoBehaviour
 {
@@ -22,11 +22,15 @@ public class LobbyController : MonoBehaviour
 
     private void PlayButtonClick()
     {
+        // Playing Button click sound.
+        SoundManager.Instance.PlaySFx("ButtonClick");
+        //enable Level selection screen
         LevelSelection.SetActive(true);
     }
 
     private void QuitButtonClick()
     {
+        SoundManager.Instance.PlaySFx("ButtonClick");
         // Closese the Aplication
         Application.Quit();
     }
