@@ -9,9 +9,8 @@ using UnityEngine.SceneManagement;
 public class LevelController : MonoBehaviour
 {
     public LevelOverController levelOverController;
-
-    // Detecting triggers of Player and Enemy
-    private void OnTriggerEnter2D(Collider2D collision)
+   
+    private void OnTriggerEnter2D(Collider2D collision)  // Detecting triggers between Player and Enemy
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
@@ -21,9 +20,8 @@ public class LevelController : MonoBehaviour
             SoundManager.Instance.PlaySFx("collision");
         }
     }
-
-    // Detecting collision of Player and LevelComplete object.
-    private void OnCollisionEnter2D(Collision2D collision)
+    
+    private void OnCollisionEnter2D(Collision2D collision)  // Detecting collision between Player and LevelComplete object.
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {

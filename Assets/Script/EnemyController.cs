@@ -18,8 +18,10 @@ public class EnemyController : MonoBehaviour
     }
     private void Update()
     {
+       
         FlipEnemy();
         HorrizontalMovement();
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision) // Checking fliping status

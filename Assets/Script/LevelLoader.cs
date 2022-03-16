@@ -12,8 +12,8 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Button))]
 public class LevelLoader : MonoBehaviour
 {
-    private Button button;
-    public string LevelName;
+    [SerializeField] private Button button;
+    [SerializeField] private string LevelName;
 
     private void Awake()
     {
@@ -43,8 +43,5 @@ public class LevelLoader : MonoBehaviour
                 SceneManager.LoadScene(LevelName);
                 break;
         }
-
-
-
     }
 }

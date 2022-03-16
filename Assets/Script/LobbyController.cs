@@ -10,9 +10,9 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class LobbyController : MonoBehaviour
 {
-    public Button PlayButton;
-    public Button QuitButton;
-    public GameObject LevelSelection;
+    [SerializeField] private Button PlayButton;
+    [SerializeField] private Button QuitButton;
+    [SerializeField] private GameObject LevelSelection;
 
     private void Awake()
     {
@@ -22,16 +22,13 @@ public class LobbyController : MonoBehaviour
 
     private void PlayButtonClick()
     {
-        // Playing Button click sound.
-        SoundManager.Instance.PlaySFx("ButtonClick");
-        //enable Level selection screen
-        LevelSelection.SetActive(true);
+        SoundManager.Instance.PlaySFx("ButtonClick");  // Playing Button click sound.
+        LevelSelection.SetActive(true);  //enable Level selection screen
     }
 
     private void QuitButtonClick()
     {
         SoundManager.Instance.PlaySFx("ButtonClick");
-        // Closese the Aplication
-        Application.Quit();
+        Application.Quit();  // Closese the Aplication
     }
 }

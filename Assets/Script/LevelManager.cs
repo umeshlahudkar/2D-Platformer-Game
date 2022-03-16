@@ -13,7 +13,7 @@ public class LevelManager : MonoBehaviour
     private static LevelManager instance;
     public static LevelManager Instance { get { return instance; } }
 
-    public string[] levels;
+    [SerializeField] public string[] levels;
 
     private void Awake()
     {
@@ -30,7 +30,6 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-         
         if (GetLevelStastus(levels[0]) == LevelStatus.locked)
         {
             SetLevelStastus(levels[0], LevelStatus.unlocked);
@@ -50,8 +49,6 @@ public class LevelManager : MonoBehaviour
         {
             SetLevelStastus(levels[nextSceneIndex], LevelStatus.unlocked);
         }
-
-
     }
 
 

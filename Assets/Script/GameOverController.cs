@@ -10,9 +10,11 @@ using System;
 /// </summary>
 public class GameOverController : MonoBehaviour
 {
-    public Button restartButton;
-    public Button QuitButton;
-    public Button MainMenuButton;
+    [SerializeField]private Button restartButton;
+    [SerializeField] private Button QuitButton;
+    [SerializeField] private Button MainMenuButton;
+
+   
 
     private void Awake()
     {
@@ -23,18 +25,15 @@ public class GameOverController : MonoBehaviour
 
     private void MainMenuButtonClick()
     {
-        // Load Main menu scene (Lobby scene).
         SceneManager.LoadScene("LobbyScene");
-        // Playing button click sound
-        SoundManager.Instance.PlaySFx("ButtonClick");
-        // disable mute to play backGround music
-        SoundManager.Instance.SoundBgMusic.mute = false;
+        SoundManager.Instance.PlaySFx("ButtonClick");   // Playing button click sound
+        SoundManager.Instance.SoundBgMusic.mute = false;  // disable mute to play backGround music
+
     }
 
     public void PlayerDied()
     {
-        // Enable GameOver screen
-        gameObject.SetActive(true);
+        gameObject.SetActive(true);  // Enable GameOver screen
         // Muting Background music to play another music for GameOver sreen from Inspector 
         SoundManager.Instance.SoundBgMusic.mute = true;
         
@@ -42,22 +41,16 @@ public class GameOverController : MonoBehaviour
 
     public void RestartButtonClick()
     {
-        // Reload current scene
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.buildIndex);
-        // Playing button click sound
-        SoundManager.Instance.PlaySFx("ButtonClick");
-        // disable mute to play backGround music
-        SoundManager.Instance.SoundBgMusic.mute = false;
+        SoundManager.Instance.PlaySFx("ButtonClick");   // Playing button click sound
+        SoundManager.Instance.SoundBgMusic.mute = false;  // disable mute to play backGround music
     }
 
     public void QuitButtonClick()
     {
-        // Closes application.
-        Application.Quit();
-        // Playing button click sound
-        SoundManager.Instance.PlaySFx("ButtonClick");
-        // disable mute to play backGround music
-        SoundManager.Instance.SoundBgMusic.mute = false;
+        Application.Quit();  // Closes application.
+        SoundManager.Instance.PlaySFx("ButtonClick");  // Playing button click sound
+        SoundManager.Instance.SoundBgMusic.mute = false;  // disable mute to play backGround music
     }
 }

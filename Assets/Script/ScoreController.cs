@@ -29,6 +29,6 @@ public class ScoreController : MonoBehaviour
     public void ScoreDisplay()  
     {
         // Display score.
-        scoreText.text = " Score : " + score;
+        scoreText.text = "Score : " + score;
     }
 }

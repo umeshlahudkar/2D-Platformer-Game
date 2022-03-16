@@ -14,8 +14,9 @@ public class KeyController : MonoBehaviour
         {
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
             playerController.KeyPickUp();
-            // Playing KeyPickUp sound
-            SoundManager.Instance.PlaySFx("KeyPickUp");
+            
+            SoundManager.Instance.PlaySFx("KeyPickUp"); // Playing KeyPickUp sound
+
             Destroy(gameObject);
         }
     }
