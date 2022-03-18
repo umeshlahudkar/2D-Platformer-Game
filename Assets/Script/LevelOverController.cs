@@ -23,7 +23,6 @@ public class LevelOverController : MonoBehaviour
     {
         gameObject.SetActive(true); // enable game over screen
         LevelManager.Instance.MarkLevelComplete();  // calling function MarkLevelComplete() to mark it complete.
-        SoundManager.Instance.SoundBgMusic.mute = true; // // Mute backGround music for playing LevelOver screen music.
     }
 
     public void onRestartButtonClick()
@@ -31,14 +30,14 @@ public class LevelOverController : MonoBehaviour
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
         SoundManager.Instance.PlaySFx("ButtonClick");  // Playing button click sound
-        SoundManager.Instance.SoundBgMusic.mute = false; // disable mute to play backGround music
+        SoundManager.Instance.PlaySoundBgMusic("BgMusic");
     }
 
     public void onMenuButtonClick()
     {
         SceneManager.LoadScene("LobbyScene");
         SoundManager.Instance.PlaySFx("ButtonClick"); // Playing button click sound
-        SoundManager.Instance.SoundBgMusic.mute = false; // disable mute to play backGround music
+        SoundManager.Instance.PlaySoundBgMusic("BgMusic");
     }
 
     public void onNextLevelButtonClick()
@@ -48,6 +47,6 @@ public class LevelOverController : MonoBehaviour
 
         SceneManager.LoadScene(nextSceneBuildIndex);
 
-        SoundManager.Instance.SoundBgMusic.mute = false;
+        SoundManager.Instance.PlaySoundBgMusic("BgMusic");
     }
 }

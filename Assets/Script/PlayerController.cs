@@ -62,6 +62,7 @@ using UnityEngine.SceneManagement;
             animator.SetBool("Crouch", false); // Playing Crouch animation.
         }
 
+
         if (Input.GetKeyDown(KeyCode.UpArrow)) // Jump
         {
             if (OnGround)
@@ -131,7 +132,7 @@ using UnityEngine.SceneManagement;
 
     public void KeyPickUp()  // Key collector
         {
-            scoreController.ScoreIncrementer(score);
+        scoreController.ScoreIncrementer(score);
         }
 
     void PlayAnimation(float horrizontalInput, float VerticalInput, bool crouchEnable) // Contorl Player animation
@@ -174,11 +175,12 @@ using UnityEngine.SceneManagement;
         else
         {
             IsDead = true;
-            if(timeDelay > time)
+            if(timeDelay > time) // to provide delay for playing Death Animation. Delay to open GameOver screen.
             {
                 gameOverController.PlayerDied();
                 timeDelay = 0;
                 IsDead = false;
+                SoundManager.Instance.PlaySoundBgMusic("GameOver");
                 this.enabled = true;
             }
 

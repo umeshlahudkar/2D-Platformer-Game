@@ -26,6 +26,7 @@ public class LevelController : MonoBehaviour
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
             levelOverController.LevelComplete();
+            SoundManager.Instance.PlaySoundBgMusic("GameOver");
         }
     }
 }
